@@ -1,8 +1,11 @@
 package com.openclassrooms.starterjwt.services;
 
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import com.openclassrooms.starterjwt.models.User;
 import com.openclassrooms.starterjwt.repository.UserRepository;
-import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
@@ -19,4 +22,19 @@ public class UserService {
     public User findById(Long id) {
         return this.userRepository.findById(id).orElse(null);
     }
+
+	public void save(User user) {
+		this.userRepository.save(user);
+	}
+
+	public Optional<User> findByEmail(String username) {
+		return this.userRepository.findByEmail(username);
+	}
+	
+	public Boolean existsByEmail(String email) {
+		return this.userRepository.existsByEmail(email);
+	}
+     
+    
+    
 }
