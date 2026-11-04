@@ -17,9 +17,7 @@ export class AppComponent {
   private router = inject(Router);
   private sessionService = inject(SessionService);
 
-  public $isLogged(): Observable<boolean> {
-    return this.sessionService.$isLogged();
-  }
+  public isLogged$: Observable<boolean> = this.sessionService.$isLogged();
 
   public logout(): void {
     this.sessionService.logOut();

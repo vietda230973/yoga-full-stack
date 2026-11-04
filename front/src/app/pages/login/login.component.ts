@@ -22,6 +22,7 @@ export class LoginComponent {
 
   public hide = true;
   public onError = false;
+  public isLoading = false;
 
   public form = this.fb.group({
     email: [
@@ -35,19 +36,31 @@ export class LoginComponent {
       '',
       [
         Validators.required,
-        Validators.min(3)
+        Validators.minLength(3)
       ]
     ]
   });
 
   public submit(): void {
+     if (this.form.invalid || this.isLoading) {
+      return;
+    }
+
+    this.onError = false;
+    this.isLoading = true;
+
     const loginRequest = this.form.value as LoginRequest;
     this.authService.login(loginRequest).subscribe({
-      next: (response: SessionInformation) => {
+      next: (response: SessionInformation) => 
+      {
         this.sessionService.logIn(response);
         this.router.navigate(['/sessions']);
       },
-      error: error => this.onError = true,
+      error: error => 
+      { 
+        this.onError = true;
+        this.isLoading = false;
+      }
     });
   }
 }

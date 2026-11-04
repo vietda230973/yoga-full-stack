@@ -6,20 +6,22 @@
         <form class="register-form" [formGroup]="form" (ngSubmit)="submit()">
             <mat-card-content fxLayout="column">
                 <mat-form-field fxFlex>
-                    <input matInput placeholder="First name" formControlName="firstName">
+                    <input matInput placeholder="First name" formControlName="firstName"  autocomplete="given-name">
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                    <input matInput placeholder="Last name" formControlName="lastName">
+                    <input matInput placeholder="Last name" formControlName="lastName" autocomplete="family-name">
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                    <input matInput placeholder="Email" formControlName="email">
+                    <input matInput placeholder="Email" type="email"  formControlName="email" autocomplete="email" autocomplete="new-password">
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                    <input matInput placeholder="Password" formControlName="password">
+                    <input matInput placeholder="Password" type="password" formControlName="password">
                 </mat-form-field>
             </mat-card-content>
-            <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
-            <span *ngIf="onError" class="error ml2">An error occurred</span>
+            <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading">Submit</button>
+             @if (onError) {
+                <span  class="error ml2" role="alert">An error occurred</span>
+             }
         </form>
     </mat-card>
 </div>

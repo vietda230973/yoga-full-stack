@@ -8,6 +8,7 @@ import { Session } from '../../../../core/models/session.interface';
 import { SessionApiService } from '../../../../core/service/session-api.service';
 import { MaterialModule } from "../../../../shared/material.module";
 import { CommonModule } from "@angular/common";
+import { normalizeToYmdLuxon} from "../../../../interceptors/utils.service";
 
 @Component({
   selector: 'app-form',
@@ -30,34 +31,45 @@ export class FormComponent implements OnInit {
   private id: string | undefined;
 
   ngOnInit(): void {
-    if (!this.sessionService.sessionInformation!.admin) {
+    if (!this.sessionService.sessionInformation?.admin) {
       this.router.navigate(['/sessions']);
+      return;
     }
     const url = this.router.url;
     if (url.includes('update')) {
       this.onUpdate = true;
       this.id = this.route.snapshot.paramMap.get('id')!;
-      this.sessionApiService
-        .detail(this.id)
-        .subscribe((session: Session) => this.initForm(session));
+      if (this.id !== null && this.id !== undefined) {
+        this.sessionApiService
+          .detail(this.id)
+          .subscribe((session: Session) => this.initForm(session));
+      } else {
+        this.router.navigate(['/sessions']);
+        return;
+      }
     } else {
       this.initForm();
     }
   }
 
   public submit(): void {
-    const session = this.sessionForm?.value as Session;
 
-    if (!this.onUpdate) {
-      this.sessionApiService
-        .create(session)
-        .subscribe((_: Session) => this.exitPage('Session created !'));
-    } else {
-      this.sessionApiService
-        .update(this.id!, session)
-        .subscribe((_: Session) => this.exitPage('Session updated !'));
+    if (this.sessionForm?.valid) {
+      const session = this.sessionForm?.value as Session;
+
+      if (!this.onUpdate) {
+        this.sessionApiService
+          .create(session)
+          .subscribe((_: Session) => this.exitPage('Session created !'));
+      } else {
+        this.sessionApiService
+          .update(this.id!, session)
+          .subscribe((_: Session) => this.exitPage('Session updated !'));
+      }
     }
   }
+
+  
 
   private initForm(session?: Session): void {
     this.sessionForm = this.fb.group({
@@ -66,7 +78,7 @@ export class FormComponent implements OnInit {
         [Validators.required]
       ],
       date: [
-        session ? new Date(session.date).toISOString().split('T')[0] : '',
+        session ? normalizeToYmdLuxon(new Date(session.date)).split('T')[0] : '',
         [Validators.required]
       ],
       teacher_id: [
