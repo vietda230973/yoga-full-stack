@@ -26,9 +26,12 @@ export class FormComponent implements OnInit {
   private router = inject(Router);
 
   public onUpdate: boolean = false;
-  public sessionForm: FormGroup | undefined;
+  public saving = false;
   public teachers$ = this.teacherService.all();
-  private id: string | undefined;
+  private id: string | null = null;
+
+   public sessionForm: FormGroup | undefined;
+  
 
   ngOnInit(): void {
     if (!this.sessionService.sessionInformation?.admin) {
@@ -38,15 +41,15 @@ export class FormComponent implements OnInit {
     const url = this.router.url;
     if (url.includes('update')) {
       this.onUpdate = true;
-      this.id = this.route.snapshot.paramMap.get('id')!;
-      if (this.id !== null && this.id !== undefined) {
+      this.id = this.route.snapshot.paramMap.get('id');
+
+      this.onUpdate = this.id !== null;
+
+      if (this.onUpdate) {
         this.sessionApiService
-          .detail(this.id)
+          .detail(this.id!)
           .subscribe((session: Session) => this.initForm(session));
-      } else {
-        this.router.navigate(['/sessions']);
-        return;
-      }
+      } 
     } else {
       this.initForm();
     }
@@ -89,7 +92,7 @@ export class FormComponent implements OnInit {
         session ? session.description : '',
         [
           Validators.required,
-          Validators.max(2000)
+          Validators.maxLength(2000)
         ]
       ],
     });
