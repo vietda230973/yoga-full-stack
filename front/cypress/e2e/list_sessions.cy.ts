@@ -41,8 +41,7 @@ describe('List sesssions', () => {
     cy.intercept('GET', '/api/session', sessionsResponse).as('sessions');
 
     cy.visit('/login');
-    cy.get('input[formControlName=email]').type('yoga@studio.com');
-    cy.get('input[formControlName=password]').type('test!1234{enter}{enter}');
+    cy.login();
 
     cy.wait('@login');
     cy.wait('@sessions');

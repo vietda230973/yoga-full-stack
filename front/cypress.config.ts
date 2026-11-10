@@ -1,4 +1,5 @@
 import { defineConfig } from 'cypress'
+import registerCodeCoverageTasks from '@cypress/code-coverage/task'
 
 export default defineConfig({
   videosFolder: 'cypress/videos',
@@ -14,10 +15,13 @@ export default defineConfig({
     charts: true
   },
   e2e: {
-    // We've imported your old cypress plugins here.
-    // You may want to clean this up later by importing these.
-    setupNodeEvents(on, config) {
-      return require('./cypress/plugins/index.ts').default(on, config)
+     setupNodeEvents(on, config) {
+      registerCodeCoverageTasks(on, config)
+      // include any other plugin code...
+
+      // It's IMPORTANT to return the config object
+      // with any changed environment variables
+      return config
     },
     baseUrl: 'http://localhost:4200',
   },

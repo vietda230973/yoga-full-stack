@@ -41,3 +41,19 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+/// <reference types="cypress" />
+
+
+Cypress.Commands.add('login', (email = 'yoga@studio.com', password = 'test!1234') => {
+  cy.get('input[formControlName=email]').type(email, { force: true });
+  cy.get('input[formControlName=password]').type(`${password}{enter}{enter}`, { force: true });
+});
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      login(email?: string, password?: string): Chainable<void>;
+    }
+  }
+}
+export {};
