@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "mochawesome": "^8.1.1",
+    "mochawesome-report-generator": "^6.3.2"
+  }
+}
