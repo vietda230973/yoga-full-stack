@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `back/` (this directory): Spring Boot 3.5 / Java 21 REST API, MySQL, JWT auth.
 - `front/`: Angular 19 app (Jest unit tests, Cypress e2e). Its dev server proxies `/api` to `http://localhost:8080` (`front/proxy.conf.json`).
 
-The project's goal is adding tests and raising coverage: the backend JaCoCo `check` rule requires **≥ 90% line coverage per package**; the frontend Jest threshold is 80% statements. There is no `src/test` directory yet.
+The project's goal is adding tests and raising coverage: the backend JaCoCo `check` rule requires **≥ 90% line coverage per package**; the frontend Jest threshold is 80% statements. Backend unit tests live in `src/test/java` and use JUnit 5/Mockito without requiring a database.
 
 ## Commands (run from `back/`)
 
