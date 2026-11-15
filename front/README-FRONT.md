@@ -6,11 +6,11 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 Git clone:
 
-> git clone https://github.com/OpenClassrooms-Student-Center/P5-Full-Stack-testing
+> git clone https://github.com/vietda230973/yoga-full-stack.git
 
 Go inside folder:
 
-> cd yoga
+> cd yoga-full-stack/front
 
 Install dependencies:
 
