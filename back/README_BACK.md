@@ -2,6 +2,15 @@
 
 Backend de l'application Yoga App !.
 
+## Start the project
+
+Git clone:
+
+> git clone https://github.com/vietda230973/yoga-full-stack.git
+
+Go inside folder:
+
+> cd yoga-full-stack/back
 
 ## Configuration du back
 

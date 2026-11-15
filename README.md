@@ -1,5 +1,12 @@
 # yoga-full-stack
 
+## Start the project
+
+Git clone:
+
+> git clone https://github.com/vietda230973/yoga-full-stack.git
+
+
 ## Project context
 
 "Yoga App" — an OpenClassrooms full-stack testing project. The repo has two apps:
