@@ -46,3 +46,11 @@ Launching test:
 for following change:
 
 > npm run test:watch
+
+Generate the report for the test unitaire JEST
+
+> npx jest --coverage
+
+Report is available here:
+
+> front/coverage/jest/index.html
